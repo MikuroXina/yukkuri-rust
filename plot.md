@@ -7,7 +7,7 @@
 3. 所有権とムーブとコピー
 4. 借用と参照
 5. 再借用とエイリアシング
-6. mod と crate
+6. mod と crate とドキュメントコメント
 7. struct と enum
 8. パターンマッチング (match と if let と let)
 9. impl と derive マクロ

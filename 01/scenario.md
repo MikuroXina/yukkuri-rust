@@ -213,7 +213,7 @@ let code_of_a = b'a'; // 97u8 と同じ
 ```rust
 let tuple = (1, 4.0); // (i32, f64)
 let first = tuple.0;
-let second = typle.1;
+let second = tuple.1;
 ```
 
 型は `(型1, 型2, ...)` というふうになるよ. 同じ型ばかりだとどれが何の意味なのかわからなくなるから, 使いすぎには気をつけよう.

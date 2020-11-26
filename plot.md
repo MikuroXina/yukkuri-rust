@@ -4,27 +4,28 @@
 
 1. Hello, World! (main 関数と let と基本データ型)
 2. 式と文と関数
-3. 所有権とムーブとコピー
-4. 借用と参照
-5. スライスと str
-6. 再借用とエイリアシング
-7. mod と crate とドキュメントコメント
-8. struct と enum
-9. パターンマッチング (match と letと if/while let)
-10. impl と derive マクロ
-11. Option と Result
-12. ライフタイムとライフタイム引数と 'static
-13. 関連関数とライフタイム省略
-14. スコープとライフタイムサブタイピング
-15. ジェネリクス
-16. trait とトレイト境界
-17. 関連型
-18. Box とメモリリーク
-19. Sized と Send と Sync
-20. Cell と RefCell
-21. Rc と Arc
-22. Mutex と RwLock
-23. impl Trait と dyn Trait
-24. 変性と PhantomData
-25. macro_rules!
-26. ポインタと unsafe
+3. struct と enum と pub
+4. イテレータ
+5. パターンマッチング (match と let と if/while let)
+6. mod と crate とドキュメントコメント
+7. 所有権とムーブとコピー
+8. 借用と参照
+9. スライスと str
+10. 再借用とエイリアシング
+11. impl と derive マクロ
+12. Option と Result
+13. ライフタイムとライフタイム引数と 'static
+14. 関連関数とライフタイム省略
+15. スコープとライフタイムサブタイピング
+16. ジェネリクス
+17. trait とトレイト境界
+18. 関連型
+19. Box とメモリリーク
+20. Sized と Send と Sync
+21. Cell と RefCell
+22. Rc と Arc
+23. Mutex と RwLock
+24. impl Trait と dyn Trait
+25. 変性と PhantomData
+26. macro_rules!
+27. ポインタと unsafe

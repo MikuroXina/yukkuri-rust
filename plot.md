@@ -10,10 +10,10 @@
 6. 再借用とエイリアシング
 7. mod と crate とドキュメントコメント
 8. struct と enum
-9. パターンマッチング (match と if let と let)
+9. パターンマッチング (match と letと if/while let)
 10. impl と derive マクロ
 11. Option と Result
-12. ライフタイム
+12. ライフタイムとライフタイム引数と 'static
 13. 関連関数とライフタイム省略
 14. スコープとライフタイムサブタイピング
 15. ジェネリクス

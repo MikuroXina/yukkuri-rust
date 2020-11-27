@@ -5,14 +5,14 @@
 1. Hello, World! (main 関数と let と基本データ型)
 2. 式と文と関数
 3. struct と enum と pub
-4. イテレータ
-5. パターンマッチング (match と let と if/while let)
+4. Option と Result
+5. イテレータ
 6. mod と crate とドキュメントコメント
 7. 所有権とムーブとコピー
 8. 借用と参照
-9.  再借用とエイリアシング
-10. impl と derive マクロ
-11. Option と Result
+9. パターンマッチング (match と let と if/while let)
+10. 再借用とエイリアシング
+11. impl と derive マクロ
 12. ライフタイムとライフタイム引数と 'static
 13. スライスと str
 14. 関連関数とライフタイム省略

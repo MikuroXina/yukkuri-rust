@@ -30,3 +30,4 @@
 26. 変性と PhantomData
 27. macro_rules!
 28. ポインタと unsafe
+29. async と await

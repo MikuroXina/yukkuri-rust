@@ -20,12 +20,13 @@
 16. Cell と RefCell
 17. Rc と Arc
 18. Mutex と RwLock
-19. ジェネリクス
-20. trait とトレイト境界
-21. 関連型
-22. impl Trait と dyn Trait
-23. Sized/Send/Sync と Box とメモリリーク
-24. クロージャと FnOnce/Fn/FnMut
-25. 変性と PhantomData
-26. macro_rules!
-27. ポインタと unsafe
+19. アトミック
+20. ジェネリクス
+21. trait とトレイト境界
+22. 関連型
+23. impl Trait と dyn Trait
+24. Sized/Send/Sync と Box とメモリリーク
+25. クロージャと FnOnce/Fn/FnMut
+26. 変性と PhantomData
+27. macro_rules!
+28. ポインタと unsafe

@@ -4,10 +4,10 @@
 
 1. Hello, World! (main 関数と let と基本データ型)
 2. 式と文と関数
-3. struct と enum と pub
+3. struct と enum
 4. Option と Result
 5. イテレータ
-6. mod と crate とドキュメントコメント
+6. mod と pub とドキュメントコメント
 7. 所有権とムーブとコピー
 8. 借用と参照
 9. パターンマッチング (match と let と if/while let)

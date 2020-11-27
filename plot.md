@@ -23,9 +23,9 @@
 19. ジェネリクス
 20. trait とトレイト境界
 21. 関連型
-22. Sized/Send/Sync と Box とメモリリーク
+22. impl Trait と dyn Trait
+23. Sized/Send/Sync と Box とメモリリーク
 24. クロージャと FnOnce/Fn/FnMut
-25. impl Trait と dyn Trait
-26. 変性と PhantomData
-27. macro_rules!
-28. ポインタと unsafe
+25. 変性と PhantomData
+26. macro_rules!
+27. ポインタと unsafe

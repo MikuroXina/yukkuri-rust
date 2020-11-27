@@ -2,7 +2,7 @@
 
 制作予定の動画達のプロットです.
 
-1. Hello, World! (main 関数と let と基本データ型)
+1. Hello, world! (main 関数と let と基本データ型)
 2. 式と文と関数
 3. struct と enum
 4. Option と Result

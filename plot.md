@@ -5,7 +5,7 @@
 1. Hello, world! (main 関数と let と基本データ型)
 2. 式と文と関数
 3. struct と enum
-4. Option と Result
+4. Option と Result と ? 演算子
 5. イテレータ
 6. mod と pub とドキュメントコメント
 7. 所有権とムーブとコピー

@@ -17,15 +17,14 @@
 13. ライフタイムとライフタイム引数と 'static
 14. 関連関数とライフタイム省略
 15. スコープとライフタイムサブタイピング
-16. ジェネリクス
-17. trait とトレイト境界
-18. 関連型
-19. Box とメモリリーク
-20. クロージャと FnOnce/Fn/FnMut
-21. Sized と Send と Sync
-22. Cell と RefCell
-23. Rc と Arc
-24. Mutex と RwLock
+16. Cell と RefCell
+17. Rc と Arc
+18. Mutex と RwLock
+19. ジェネリクス
+20. trait とトレイト境界
+21. 関連型
+22. Sized/Send/Sync と Box とメモリリーク
+24. クロージャと FnOnce/Fn/FnMut
 25. impl Trait と dyn Trait
 26. 変性と PhantomData
 27. macro_rules!

@@ -26,8 +26,12 @@
 22. 関連型
 23. impl Trait と dyn Trait
 24. Sized/Send/Sync と Box とメモリリーク
-25. クロージャと FnOnce/Fn/FnMut
-26. 変性と PhantomData
-27. macro_rules!
-28. ポインタと unsafe
-29. async と await
+25. Read と Write
+26. クロージャと FnOnce/Fn/FnMut
+27. 型変換と From と TryFrom と ToOwned
+28. 参照外しと Deref と DerefMut
+29. 借用の型変換と Borrow と AsRef と AsMut
+30. 変性と PhantomData
+31. macro_rules!
+32. ポインタと unsafe
+33. async と await と Future

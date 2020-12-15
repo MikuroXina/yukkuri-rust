@@ -23,8 +23,8 @@
 19. アトミック
 20. ジェネリクス
 21. trait とトレイト境界
-22. 関連型と包括的 impl
-23. impl Trait と dyn Trait
+22. trait オブジェクトとその型
+23. 関連型と包括的 impl
 24. Sized/Send/Sync と Box とメモリリーク
 25. Read と Write
 26. クロージャと FnOnce/Fn/FnMut

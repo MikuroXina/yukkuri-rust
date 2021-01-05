@@ -2,36 +2,30 @@
 
 制作予定の動画達のプロットです.
 
-1. Hello, world! (main 関数と let と基本データ型)
-2. 式と文と関数
-3. struct と enum
-4. Option と Result と ? 演算子
-5. イテレータ
-6. mod と pub とドキュメントコメント
-7. 所有権とムーブとコピー
-8. 借用と参照と借用型の所有権
-9. パターンマッチング (match と let と if/while let)
-10. 再借用とエイリアシング
-11. impl と derive マクロ
-12. ライフタイムとライフタイム引数と 'static
-13. スライスと str
-14. 関連関数とライフタイム省略
-15. スコープとライフタイムサブタイピング
-16. Cell と RefCell
-17. Rc と Arc
-18. Mutex と RwLock
-19. アトミック
-20. ジェネリクス
-21. trait とトレイト境界
-22. trait オブジェクトとその型
-23. 関連型と包括的 impl
-24. Sized/Send/Sync と Box とメモリリーク
-25. Read と Write
-26. クロージャと FnOnce/Fn/FnMut
-27. 型変換と From と TryFrom と ToOwned
-28. 参照外しと Deref と DerefMut
-29. 借用の型変換と Borrow と AsRef と AsMut
-30. 変性と PhantomData
-31. macro_rules!
-32. ポインタと unsafe
-33. async と await と Future
+1. let と mut と ref
+2. Option と Result とエラーハンドリングと ? 演算子
+3. イテレータと範囲式
+
+4. 所有権とムーブとコピー
+5. パターンマッチング (match と let と if/while let)
+6. mod とドキュメントコメントとエディション間の差異
+
+7. 借用と借用のルール
+8. スライスと str
+9. ライフタイムとライフタイム引数と 'static
+10. ライフタイム省略
+
+11. Sized/Send/Sync と Box とメモリリーク
+12. Cell と RefCell とアトミック
+13. Rc と Arc と Mutex と RwLock
+
+14. 関連型とジェネリックトレイトの使い分け
+15. クロージャと FnOnce/Fn/FnMut
+16. 型変換と From と TryFrom と ToOwned
+17. 参照外しと Deref と DerefMut
+18. 借用の型変換と Borrow と AsRef と AsMut
+
+19. 変性と PhantomData
+20. ポインタと NonNull と unsafe
+21. async と await と Future
+22. 健全なマクロと derive マクロと手続きマクロ

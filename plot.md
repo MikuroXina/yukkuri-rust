@@ -17,15 +17,16 @@
 
 11. Sized/Send/Sync と Box とメモリリーク
 12. Cell と RefCell とアトミック
-13. Rc と Arc と Mutex と RwLock
+13. Rc と Arc と参照カウント方式
+14. Mutex と RwLock と並行処理
 
-14. 関連型とジェネリックトレイトの使い分け
-15. クロージャと FnOnce/Fn/FnMut
-16. 型変換と From と TryFrom と ToOwned
-17. 参照外しと Deref と DerefMut
-18. 借用の型変換と Borrow と AsRef と AsMut
+15. 関連型とジェネリックトレイトの使い分け
+16. クロージャと FnOnce/Fn/FnMut
+17. 型変換と From と TryFrom と ToOwned
+18. 参照外しと Deref と DerefMut
+19. 借用の型変換と Borrow と AsRef と AsMut
 
-19. 変性と PhantomData
-20. ポインタと NonNull と unsafe
-21. async と await と Future
-22. 健全なマクロと derive マクロと手続きマクロ
+20. 変性と PhantomData
+21. ポインタと NonNull と unsafe
+22. async と await と Future
+23. 健全なマクロと derive マクロと手続きマクロ

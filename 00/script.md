@@ -20,9 +20,101 @@
 
 「まずコピーのデメリットから説明しますね
 
-ムーブコンストラクター
+「コピーコンストラクタを使ってこのようにコピーをすると, それぞれの作成と破棄が行われるのはわかってますよね?
 
-rvalue 参照型
+「あーうん. クラス型のオブジェクトのコピーは, コピーコンストラクタとコピー代入演算子でやるんだよね
+
+```cpp
+using std::puts;
+class Hoge final {
+  int *ptr;
+
+public:
+  Hoge() : ptr(new int) {
+    puts("Hoge created");
+  }
+  ~Hoge() { 
+    puts("Hoge dropped");
+    delete ptr;
+  }
+
+  Hoge(Hoge const &src) : ptr(new int{*src.ptr}) {
+    puts("Hoge copied");
+  }
+  Hoge &operator=(Hoge const &) = default;
+};
+Hoge a; // a の作成
+Hoge b{a}; // a をコピーして b の作成
+// しかしこれ以降 a は使わない
+// b の破棄
+// a の破棄
+```
+
+「しかし, コピーした後からはコピー元を使わないのであれば, ちょっとメモリが無駄になります
+
+「んー, 無駄なのー?
+
+「既に確保したポインタを使い回して, `delete` する回数も 1 回に減らすんですよ
+
+```cpp
+Hoge a; // a の作成
+Hoge b /* <-???-- */ a; // a のポインタを b に移す
+// b の破棄
+// a は破棄しない
+```
+
+「えーでも, そんなことできるの?
+
+「ムーブコンストラクタを定義することで, できるんです
+
+```cpp
+using std::puts;
+class Hoge final {
+  int *ptr;
+
+public:
+  Hoge() : ptr(new int) {
+    puts("Hoge created");
+  }
+  ~Hoge() { 
+    if (!ptr) { return; }
+    puts("Hoge dropped");
+    delete ptr;
+  }
+
+  Hoge(Hoge &&src) : ptr(src.ptr) {
+    src.ptr = nullptr;
+    puts("Hoge moved");
+  }
+  Hoge &operator=(Hoge &&) = default;
+};
+Hoge a;
+Hoge b{static_cast<Hoge &&>(a)};
+```
+
+「ん? この `Hoge &&` ってなんだろ
+
+「それが rvalue 参照型ですね. 関数にこの型の値を渡した後から, その値は使えなくなります
+
+「`b` のとこのキャストで rvalue 参照にしてるってわけ?
+
+「そうですね. こうすることで `a` は使えなくなります
+
+「あー, ムーブコンストラクタの中で `ptr` を `nullptr` にしてるのはなんで?
+
+「先ほど『使えなくなる』と言いましたが, そういうことにしているだけで実際には触れてしまいます
+
+「えー, そうなの?
+
+「だからムーブ元オブジェクトの後始末をムーブコンストラクタの中でやります
+
+「後始末なの?
+
+「デストラクタのところで, `ptr` が `nullptr` だったら解放処理を飛ばしているでしょう?
+
+「あー, ムーブ元は解放しなくていいってことか
+
+「そうですね, おかげで実際の `new` と `delete` はちゃんと 1 回ずつになります
 
 *アイキャッチ*
 

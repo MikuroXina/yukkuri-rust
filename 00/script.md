@@ -24,8 +24,8 @@ Hoge b{std::move(a)};
 「こういうものかと思ったんですけど……？
 
 ```cpp
-int a = 1;
-int b = std::move(a);
+int a{1};
+int b{std::move(a)};
 ```
 
 「あー, ……それだと意味ないですね

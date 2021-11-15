@@ -4,11 +4,11 @@
 
 「うーん, 私はコーヒーパフェにでもしますか
 
-「えー, もうちょっと甘味とかにしましょーよー
+「えー, もうちょっと甘いのにしましょーよー
 
 「ちょっと高いので…
 
-「じゃあ, 今日は私のおごりにするから〜♪
+「じゃあじゃあ, 今日は私のおごりにするから〜♪
 
 「珍しいですね, 何かあったんですか
 
@@ -28,14 +28,14 @@
 
 「えっとね, Rust の `Option` とか `Result` の使い方がわかんない！
 
-「あーなるほど…, まずは `Option` の定義から見ていきますか
+「あーなるほど……, まずは `Option` の定義から見ていきますか
 
 「おっけー♪
 
 
 「たしかこんな感じの定義でしたね
 
-```rust
+```rs
 enum Option<T> {
   Some(T),
   None,
@@ -53,7 +53,7 @@ enum Option<T> {
 
 「そしてこれが `Result` です
 
-```rust
+```rs
 enum Result<T, E> {
   Ok(T),
   Err(E),
@@ -75,7 +75,7 @@ enum Result<T, E> {
 
 「ソースコードを見るとそのまんまですが, このように中身を取り出して渡された関数に入れています
 
-```rust
+```rs
 impl<T> Option<T> {
   fn map<U, F: FnOnce(T) -> U>(self, f: F) -> Option<U> {
     match self {
@@ -99,11 +99,11 @@ impl<T, E> Result<T, E> {
 
 `as_ref` `as_mut` `as_deref`
 
-「`map` はムーブして所有権を奪うようになっています. しかし `&Option<T>` を `Option<&T>` に変換するメソッドが提供されているのでこれを使えば大丈夫です
+「`map` はムーブして所有権を奪うようになっています. しかし `&Option<T>` を `Option<&T>` に変換するようなメソッドも提供されているのでこれを使えば大丈夫です
 
 「ふーん, いっつも `clone` しちゃってたかも……
 
-「`&Option<String>` を `Option<&str>` に変換するみたいな処理は, `map` しなくても `as_deref` でできます
+「`&Option<String>` を `Option<&str>` に変換するみたいな処理は, 自分で `map` しなくても `as_deref` でできます
 
 「へぇ〜便利ぃ
 
@@ -125,17 +125,88 @@ impl<T, E> Result<T, E> {
 
 「えーと, こんな感じかな?
 
+```rs
+/// 平方数のときだけその平方根を求める
+fn sqrt_if_sq(x: u32) -> Option<u32> {
+  for n in 1..x {
+    if n * n == x {
+      return Some(n);
+    }
+  }
+  None
+}
+
+let mut opt = Some(9);
+if let Some(n) = opt {
+  opt = sqrt_if_sq(n);
+}
+println!("{:?}", opt);
+```
+
 「もうちょっと処理を増やしてみますか
 
-「仮の関数だらけだけど, こうしてみたよ
 
-「そうやっていろんな処理をつなぎ始めると, 取り出す処理も増えていきます
+```rs
+let mut opt = Some(6561);
+if let Some(n) = opt {
+  opt = sqrt_if_sq(n);
+}
+if let Some(n) = opt {
+  opt = sqrt_if_sq(n);
+}
+if let Some(n) = opt {
+  opt = sqrt_if_sq(n);
+}
+if let Some(n) = opt {
+  opt = sqrt_if_sq(n);
+}
+println!("{:?}", opt);
+```
 
-「あぁ, やっぱり取り出すとこはそれを持ってる方がやれば楽なんだねー
+「おうおう, すごいことに
+
+「そうやっていろんな処理をつなぎ始めると, 取り出す処理も増えていきます. `and_then` で書き直してみましょう
+
+「こう, かな?
+
+```rs
+let opt = Some(6561)
+  .and_then(sqrt_if_sq)
+  .and_then(sqrt_if_sq)
+  .and_then(sqrt_if_sq)
+  .and_then(sqrt_if_sq);
+println!("{:?}", opt);
+```
+
+「そうですね, だいぶわかりましたか?
+
+「やっぱり取り出すとこはそれを持ってる方がやれば楽なんだねー
 
 `ok_or` `ok` `err`
 
 「最後に, `Option` と `Result` の相互変換を提供する関数です
+
+```rs
+let x: Option<&str> = Some("foo");
+x.ok_or(0); // Ok("foo")
+
+let x: Option<&str> = None;
+x.ok_or(0); // Err(0)
+
+
+let x: Result<u32, &str> = Ok(2);
+x.ok(); // Some(2)
+
+let x: Result<u32, &str> = Err("Nothing here");
+x.ok(); // None
+
+
+let x: Result<u32, &str> = Ok(2);
+x.err(); // None
+
+let x: Result<u32, &str> = Err("Nothing here");
+x.err(); // Some("Nothing here")
+```
 
 「おー, いつでも取っ換えられるんだ
 
@@ -164,7 +235,7 @@ impl<T, E> Result<T, E> {
 
 「`std::env::var` ですね
 
-```rust
+```rs
 fn request_hoge() -> Result<HogePayload, HogeError> {
   let token = std::env::var("HOGE_TOKEN").except("HOGE_TOKEN must be provided");
   // ...
@@ -178,7 +249,7 @@ fn request_hoge() -> Result<HogePayload, HogeError> {
 
 「他にも, 関数に正しい引数を渡すことを呼び出す側の責任にしたほうが, 数学的な関数の実装がシンプルになります
 
-```rust
+```rs
 /// 平方根の逆数を高速に計算する.
 fn inv_sqrt(x: f64) -> f64 {
   // x は正の数でなければならない.
@@ -222,14 +293,14 @@ fn inv_sqrt(x: f64) -> f64 {
 
 「制約が付いた値を別の型として, その制約が維持されていることを保証するのもテクニックです
 
-```rust
+```rs
 /// 十分に小さい `f64` の値を 0 として扱う
 #[derive(Debug, Default, Clone, Copy, PartialOrd, PartialEq)]
 struct FuzzyFloat(f64);
 
 impl FuzzyFloat {
   fn new(x: f64) -> Self {
-    Self(if x.abs() < f64::EPSILON { 0.0 } else { x })
+    Self(if x.abs() < 1e-6 { 0.0 } else { x })
   }
 
   fn as_f64(self) -> f64 { self.0 }
@@ -320,7 +391,7 @@ fn foo(x: Option<i32>) {
 
 「はいこれ, 名刺です
 
-「ふむふむ, 神谷 みお さん?
+「うわなにこのケバケバしい名刺……. えーと, 神谷 みお さん?
 
 ---
 

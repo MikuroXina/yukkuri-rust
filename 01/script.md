@@ -101,17 +101,40 @@ impl<T, E> Result<T, E> {
 
 「`map` はムーブして所有権を奪うようになっています. しかし `&Option<T>` を `Option<&T>` に変換するようなメソッドも提供されているのでこれを使えば大丈夫です
 
+```rs
+let mut text: Option<String> = Some("Hello, world!".into());
+
+let text_length: Option<usize> = text.as_ref().map(|s| s.len());
+
+if let Some(n) = text.as_mut() {
+  n.push('?');
+}
+
+let text_str: Option<&str> = text.as_deref();
+```
+
 「ふーん, いっつも `clone` しちゃってたかも……
 
 「`&Option<String>` を `Option<&str>` に変換するみたいな処理は, 自分で `map` しなくても `as_deref` でできます
 
 「へぇ〜便利ぃ
 
-`unwrap` `except` `unwrap_or` `unwrap_default`
+`unwrap` `expect` `unwrap_or`
 
 「中身をそのまま取り出すときは `unwrap` 系の関数ですね
 
-「ふむふむ……, `except` は何に使うの?
+```rs
+Some("air").unwrap(); // "air"
+None.unwrap(); // パニックする
+
+Some("car").unwrap_or("bike"); // "car"
+None.unwrap_or("bike"); // "bike"
+
+Some("an important message").expect("message must be provided");
+None.expect("message must be provided"); // パニックする
+```
+
+「ふむふむ……, `expect` は何に使うの?
 
 「これは取り出しに失敗すると指定のメッセージ付きでパニックするんです. 原因がわかりやすくなります
 
@@ -119,7 +142,18 @@ impl<T, E> Result<T, E> {
 
 「中身の値から新しい `Option` や `Result` を作るときは `and_then` が便利ですね
 
-「……これ要るの? 再代入してるだけじゃん
+```rs
+impl<T> Option<T> {
+  pub fn and_then<U, F: FnOnce(T) -> Option<U>>(self, f: F) -> Option<U> {
+    match self {
+      Some(x) => f(x),
+      None => None,
+    }
+  }
+}
+```
+
+「……これ要るの? そのまま新しいのに置き換えて, 要は再代入してるだけじゃん
 
 「じゃあちょっと再代入で表現してみましょうか
 
@@ -229,22 +263,14 @@ x.err(); // Some("Nothing here")
 
 「へー?
 
-「例えば API のアクセスにトークンが必要で, それを環境変数で与える場合を考えてみますか
-
-「Rust で環境変数ってどうやって取るの?
-
-「`std::env::var` ですね
+「
 
 ```rs
-fn request_hoge() -> Result<HogePayload, HogeError> {
-  let token = std::env::var("HOGE_TOKEN").except("HOGE_TOKEN must be provided");
-  // ...
+fn hoge() -> Result<HogePayload, HogeError> {
 }
 ```
 
-「ここで環境変数の取得失敗は, 明らかにプログラムのセットアップを間違えているだけです
-
-「おー, それもそうか. だから `except` で取り出せなかったらパニックにするんだね
+「
 
 
 「他にも, 関数に正しい引数を渡すことを呼び出す側の責任にしたほうが, 数学的な関数の実装がシンプルになります
@@ -326,11 +352,23 @@ impl FuzzyFloat {
 
 「まず, `panic!` はシンプルに与えられたメッセージでパニックを起こします
 
+```rs
+panic!();
+
+panic!("");
+
+panic!("", x);
+```
+
 「なんだか `print!` みたーい
 
 `assert!`
 
 「そして, 制約の検証をする場合はもっぱらこっちです
+
+```rs
+
+```
 
 「`assert_eq!` と `assert_ne!` もあるんだ, なんで分かれてるの?
 
@@ -383,7 +421,7 @@ fn foo(x: Option<i32>) {
 
 「そういえば, 私の知り合いに純粋関数型言語でいろいろ作ってるがいるんですよ
 
-「へー, そんな人がいるんですか
+「へー, そんな人がいるんだ
 
 「その人に関手とかモナドとか教わってみてもいいと思いません? 桜さん
 

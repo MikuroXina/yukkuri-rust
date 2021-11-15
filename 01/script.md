@@ -179,9 +179,9 @@ fn request_hoge() -> Result<HogePayload, HogeError> {
 「他にも, 関数に正しい引数を渡すことを呼び出す側の責任にしたほうが, 数学的な関数の実装がシンプルになります
 
 ```rust
-/// Calculates the inverse of square root quickly.
+/// 平方根の逆数を高速に計算する.
 fn inv_sqrt(x: f64) -> f64 {
-  // x must be positive.
+  // x は正の数でなければならない.
   assert!(x.is_sign_positive());
 
   // mu := 0.045
@@ -198,7 +198,7 @@ fn inv_sqrt(x: f64) -> f64 {
   let i = 0x5fe6_eb85_1eb8_5400 - (i >> 1);
   let mut a = f64::from_bits(i);
 
-  // Newton's method iterations
+  // ニュートン法の繰り返し
   // a = 1 / √x
   // a^2 = 1 / x
   // 1 / a^2 = x

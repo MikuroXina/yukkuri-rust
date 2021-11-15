@@ -179,31 +179,42 @@ fn request_hoge() -> Result<HogePayload, HogeError> {
 「他にも, 関数に正しい引数を渡すことを呼び出す側の責任にしたほうが, 数学的な関数の実装がシンプルになります
 
 ```rust
-/// 1 / √x を高速に計算する
+/// Calculates the inverse of square root quickly.
 fn inv_sqrt(x: f64) -> f64 {
-  // x は非 0 でなければならない
-  assert_ne!(x, 0.0);
-
-  const THREE_HALF: f64 = 1.5;
-  let half_x = 0.5 * x;
+  // x must be positive.
+  assert!(x.is_sign_positive());
 
   // mu := 0.045
+  // log(x) ≒ x + mu
   // log(a) := log(1 / √x) = - 1/2 log(x)
-  // 1/2^52 (a_man + 2^52 * a_exp) + mu - 1023
-  //  = - 1/2 (1/2^52 (x_man + 2^52 * x_exp) + mu - 1023)
+  // 1/2^52 (a_man + 2^52 * a_exp) - 1023 + mu
+  //  = - 1/2 (1/2^52 (x_man + 2^52 * x_exp) - 1023 + mu)
   // a_man + 2^52 * a_exp
-  //  = 2^52 * (-mu + 1023 - 1/2 (1/2^52 (x_man + 2^52 * x_exp) + mu - 1023))
-  //  = 2^52 * (1023 - mu) - 1/2 ((x_man + 2^52 * x_exp) + mu - 1023)
+  //  = 2^52 * (1023 - mu - 1/2 (1/2^52 (x_man + 2^52 * x_exp) - 1023 + mu))
+  //  = 2^52 * (1023 - mu) - 1/2 ((x_man + 2^52 * x_exp) - 1023 + mu)
   //  = 2^52 * 3/2 (1023 - mu) - 1/2 (x_man + 2^52 * x_exp)
   // a = 0x5fe6_eb85_1eb8_5400 - (x >> 1)
   let i = x.to_bits();
   let i = 0x5fe6_eb85_1eb8_5400 - (i >> 1);
-  let x = f64::from_bits(i);
+  let mut a = f64::from_bits(i);
 
-  // ニュートン法
-  let x = x * (THREE_HALF - (half_x * x * x));
-  let x = x * (THREE_HALF - (half_x * x * x));
-  x
+  // Newton's method iterations
+  // a = 1 / √x
+  // a^2 = 1 / x
+  // 1 / a^2 = x
+  // f(a) := 1 / a^2 - x = 0
+  // f'(a) = -2 / a^3
+  // a_+ = a - f(a) / f'(a)
+  //  = a + a^3 (1 / a^2 - x) / 2
+  //  = a + (a - a^3 x) / 2
+  //  = 3/2 a - a^3 x / 2
+  //  = a (3 / 2 - a^2 x / 2)
+  const THREE_HALF: f64 = 1.5;
+  let half_x = 0.5 * x;
+  for _ in 0..2 {
+    a = a * (THREE_HALF - (half_x * a * a));
+  }
+  a
 }
 ```
 

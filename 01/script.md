@@ -381,11 +381,11 @@ thread 'main' panicked at 'index out of bounds: the len is 4 but the index is 20
 「まず, `panic!` はシンプルに与えられたメッセージでパニックを起こします
 
 ```rs
-panic!();
+panic!(); // 「explicit panic」というメッセージに
 
-panic!("");
+panic!("oh my god");
 
-panic!("", x);
+panic!("panic and got x: {:?}", x);
 ```
 
 「なんだか `print!` みたーい

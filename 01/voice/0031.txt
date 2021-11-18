@@ -1,0 +1,1 @@
+&Option<String> を Option<&str> に変換するみたいな処理は, 自分で map しなくても as_deref でできます

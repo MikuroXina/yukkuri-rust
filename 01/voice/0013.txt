@@ -1,0 +1,1 @@
+えっとね, Rust の Option とか Result の使い方がわかんない！

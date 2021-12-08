@@ -292,6 +292,19 @@ fn start_game(to_be_guessed: u8) {
 
 「ふむふむ
 
+「`Option` を返すものの, パニックする場合がある関数もあります
+
+```rs
+let c = char::from_digit(11, 16);
+assert_eq!(Some('b'), c);
+
+let c = char::from_digit(20, 10);
+assert_eq!(None, c);
+
+// 36 より大きい値を渡すとパニックする
+let c = char::from_digit(1, 37);
+```
+
 「他にも, 関数に正しい引数を渡すことを呼び出す側の責任にしたほうが, 数学的な関数の実装がシンプルになります
 
 ```rs

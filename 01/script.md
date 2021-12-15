@@ -259,6 +259,101 @@ x.err(); // Some("Nothing here")
 
 *アイキャッチ*
 
+「うまかったー♪うしまけたー♪
+
+「相変わらずよく食べますね
+
+「このくらいエラーもパクパクいきたいんだけどねー
+
+「エラーは消滅させないでくださいね……?
+
+「喩えってやつですよほら. ちゃちゃっと実験したりツール書いたりしてると, `Result` を始末するのって大変で……
+
+「ちょっとしたアプリ制作におけるエラーハンドリングなら, anyhow っていうクレートが便利ですよ
+
+「えにはう?
+
+```rs
+use anyhow::{Context, Result};
+
+fn main() -> Result<()> {
+  // ...
+  it.attach().context("failed to attach")?;
+
+  let content = std::fs::read(path)
+      .with_context(|| format!("read failure from {}", path))?;
+  // ...
+}
+```
+
+「`std::error::Error` トレイトを実装しているエラーなら, anyhow が提供する `Result` として `?` で変換できます
+
+「`main` って `Result` 返せたのか……
+
+「更に, `Context` トレイトが提供する `context` メソッドで, 状況を表すメッセージをエラーに付け加えられます
+
+「普通にエラー作りたいときはどうするの?
+
+「`bail!` や `anyhow!` マクロがあります
+
+```rs
+bail!("Missing attribute: {}", missing);
+// ↑ と ← は同じ
+return Err(anyhow!("Missing attribute: {}", missing));
+```
+
+「おー, なるほど. どんなメソッドでも えにはう の `Result` にしておけば分かりやすいんだね
+
+「しかし, ライブラリを作る場合は anyhow の `Result` を返してしまうとよくありません
+
+「あれ, そうなの?
+
+「自作のエラー型を作って, `type Result<T> = Result<T, MyError>` のように定義すべきです
+
+「`std::io::Error` みたいな感じ? でもそれめんどいにゃー
+
+「自作のエラー型を簡単に作るときは, thiserror クレートが便利です
+
+```rs
+use thiserror::Error;
+
+#[derive(Error, Debug)]
+pub enum DataStoreError {
+  #[error("data store disconnected")]
+  Disconnect(#[from] io::Error),
+  #[error("the data for key `{0}` is not available")]
+  Redaction(String),
+  #[error("invalid header (expected {expected:?}, found {found:?})")]
+  InvalidHeader {
+    expected: String,
+    found: String,
+  },
+  #[error("unknown data store error")]
+  Unknown,
+}
+```
+
+「このようにマクロでエラーのバリアントごとのエラーメッセージを簡単に書けます
+
+「んー, でもいろんな道具使うの大変だよ
+
+「これなしで自作するとなると, `Display` トレイトを実装するのが意外と手間なんですよね
+
+```rs
+impl std::fmt::Display for MyError {
+  fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+    match self {
+      Hoge => write!(f, "hoge error"),
+      // ...
+    }
+  }
+}
+```
+
+「ほうほう. メモっとこ……
+
+*アイキャッチ*
+
 「どんな関数のエラーも拾えるように, 最初から全部 `Result` だったらいいのにー. そう思いません〜?
 
 「ふふ, 確かに基本的には `Result` にしてエラーのハンドリングを呼び出す側に任せるのがいいでしょう

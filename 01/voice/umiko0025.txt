@@ -1,1 +1,1 @@
-Option や Result にはいろいろ便利なメソッドが impl されてます. 代表的なものはやはり map でしょう
+最後に, Option と Result の相互変換を提供する関数です

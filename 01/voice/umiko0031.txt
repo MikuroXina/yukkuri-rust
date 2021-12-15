@@ -1,0 +1,1 @@
+std::error::Error`トレイトを実装しているエラーなら, anyhow が提供する Result として ? で変換できます

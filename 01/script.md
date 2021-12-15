@@ -302,7 +302,7 @@ bail!("Missing attribute: {}", missing);
 return Err(anyhow!("Missing attribute: {}", missing));
 ```
 
-「おー, なるほど. どんなメソッドでも えにはう の `Result` にしておけば分かりやすいんだね
+「おー, なるほど. どんなメソッドでも えにはう の `Result` にしておけば扱いやすいんだね
 
 「しかし, ライブラリを作る場合は anyhow の `Result` を返してしまうとよくありません
 
@@ -310,7 +310,7 @@ return Err(anyhow!("Missing attribute: {}", missing));
 
 「自作のエラー型を作って, `type Result<T> = Result<T, MyError>` のように定義すべきです
 
-「`std::io::Error` みたいな感じ? でもそれめんどいにゃー
+「`std::io::Result` みたいな感じ? でもそれめんどいにゃー
 
 「自作のエラー型を簡単に作るときは, thiserror クレートが便利です
 
@@ -350,7 +350,7 @@ impl std::fmt::Display for MyError {
 }
 ```
 
-「ほうほう. メモっとこ……
+「ほうほう. このクレートちゃん達にスターつけとこ……
 
 *アイキャッチ*
 

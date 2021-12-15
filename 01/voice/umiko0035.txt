@@ -1,0 +1,1 @@
+自作のエラー型を作って, `type Result<T> = Result<T, MyError>` のように定義すべきです

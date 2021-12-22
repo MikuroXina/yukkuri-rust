@@ -125,13 +125,13 @@ let text_str: Option<&str> = text.as_deref();
 
 ```rs
 Some("air").unwrap(); // "air"
-None.unwrap(); // パニックする
+None::<&str>.unwrap(); // パニックする
 
 Some("car").unwrap_or("bike"); // "car"
 None.unwrap_or("bike"); // "bike"
 
 Some("an important message").expect("message must be provided");
-None.expect("message must be provided"); // パニックする
+None::<&str>.expect("message must be provided"); // パニックする
 ```
 
 「ふむふむ……, `expect` は何に使うの?

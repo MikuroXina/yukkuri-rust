@@ -541,7 +541,7 @@ fn foo(x: Option<i32>) {
  match x {
   Some(n) if n >= 0 => println!("Some(Non-negative)"),
   Some(n) if n <  0 => println!("Some(Negative)"),
-  Some(_)           => unreachable!(), // コメントアウトしたらエラー
+  Some(_)           => unreachable!(), // この分岐が無いとエラー
   None              => println!("None")
  }
 }

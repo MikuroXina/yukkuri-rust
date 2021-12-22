@@ -298,7 +298,7 @@ fn main() -> Result<()> {
 
 ```rs
 bail!("Missing attribute: {}", missing);
-// ↑ と ← は同じ
+// ↑ と ↓ は同じ
 return Err(anyhow!("Missing attribute: {}", missing));
 ```
 

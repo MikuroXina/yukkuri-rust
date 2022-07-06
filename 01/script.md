@@ -628,7 +628,7 @@ panic = "abort"
 
 ---
 
-動画: Mikuro さいな
+動画: Mikuroさいな
 監修: かわえもん
 
 参考文献:

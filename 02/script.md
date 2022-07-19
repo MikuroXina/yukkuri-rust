@@ -84,7 +84,7 @@ int main() {
 ```cpp
 std::vector<int> nums = { 1, 4, 2, 3, 5 };
 
-for (auto it = nums.cbegin(); it != nums.cend(); **it) {
+for (auto it = nums.cbegin(); it != nums.cend(); ++it) {
     auto const &num = *it;
     nums.push_back(num);
     std::cout << num << ", ";
